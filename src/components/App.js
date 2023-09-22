@@ -1,13 +1,18 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './../styles/App.css';
 
 const App = () => {
   const [time, setTime] = useState(0);
-  setInterval(() => setTime(time + 1), 1000);
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(time => time + 1), 1000);
+    return () => { clearInterval(interval); }
+  }, [])
+
   return (
     <div>
-        <p>You've been on this page for {time} seconds.</p>
+      <p>You've been on this page for {time} seconds.</p>
     </div>
   )
 }
